@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Edlore Consumer</title>
+</head>
+
+<body>
+<header>
+<a href="#" class="brand-logo"><img src="/assets/edlore-logo.png"/></a>
+<div class="profile-info">
+<a href="#">
+	<strong>Nicholas <img src="/assets/profile-arw.png"/><br><label>Admin</label></strong>
+	<span><img src="/assets/profile-img.png"/></span>
+</a>
+</div>
+<div class="clr"></div>
+</header>
+<div class="profile-list">
+<ul>
+	<li class="cmt-icon"><a href="javascript:;"><i></i>Complaints</a></li>
+    <li class="stg-icon"><a href="javascript:;"><i></i>Settings</a></li>
+	<li class="log-icon"><a href="/logout"><i></i>Sign Out</a></li>
+
+</ul>
+</div>
+
+<nav>
+	<ul>
+		<% if params[:controller] == "dashboard" %>  
+	<% active_dashboards= "active" %>
+	
+	<% elsif params[:controller] == "consumers" %>
+	<% active_consumers = "active"%>
+	<% elsif params[:controller] == "experts" %>
+	<% active_experts = "active"%>	
+	<% elsif params[:controller] == "categories" %>
+	<% active_experts = "active"%>
+	<% else params[:controller] == "jobs" %>	
+	<% active_jobs = "active"%>
+    <% end %>
+
+
+
+    <li class="<%= active_dashboards %>"><a onclick="window.location.href='/'"><span class="dashboard"></span><p>Dashboard</p></a></li>
+	<li class="<%= active_consumers %>"><a href="/consumers"><span class="consumer"></span><p>Consumers</p></a></li>
+	<li class="<%= active_experts %>">
+	 <a onclick="window.location.href='/experts'"><span class="expert"></span><p>Experts</p></a></li>
+	<li class="<%= active_jobs %>"><a onclick="window.location.href='/jobs'"><span class="jobs"></span><p>Helps</p></a></li>
+
+
+
+	</ul>
+</nav>
+
+</body>    
+</html>
+
+
+

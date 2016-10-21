@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+    .pdftable tr td{text-align:center;padding:8px 0;}
+    .pdftable tr th{text-align:center;padding:8px 0;color:#fff;}
+    </style>
+  </head>
+  <body>
+  <div>
+    <h2> Help List</h2> 
+    <table class="comm-table pdftable" style="border:1px solid #ccc;width:900px">
+      <tr style="background: #333;">
+        <th width="5%">No</th>
+        <th width="8%">ID</th>
+        <th width="20%">Help Name<span></span></th>
+        <th width="10%">Received Date</th>
+        <th width="15%">Category</th>
+        <th width="10%">Status<span></span></th>
+        
+      </tr>
+      <% i = 1%>
+      <% @jobs.each do |job| %>
+        <tr>
+          <td><%= i %></td>
+          <td>J<%= job.id%></td>
+          <td><%= job.issue_name%></td>
+          <td><%= job.received_date.strftime("%m/%d/%Y")%></td>
+          <td><%= job.cat_name %></td>
+          <td><%= job.status%></td>
+        </tr>
+        <% i= i+1 %>
+      <% end %>
+    </table>
+  </div>
+  </body>
+</html>       

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  part_name: MyString
+  job_id: 1
+  user_id: 1
+  expert_id: 1
+
+two:
+  part_name: MyString
+  job_id: 1
+  user_id: 1
+  expert_id: 1

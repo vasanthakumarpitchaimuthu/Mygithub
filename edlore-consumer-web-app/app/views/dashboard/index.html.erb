@@ -1,0 +1,100 @@
+<div class="content-container">
+	<div class="column-one">
+		<div class="widget">
+			<div class="header">Job Statistics<a onclick="window.location.href='/jobs'">View All</a></div>
+			<div class="content">
+				<table class="comm-table">
+					<tr>
+						<th width="7%">No.</th>
+						<th width="23%">Time</th>
+						<th width="35%">Name</th>
+						<th width="20%">Category</th>
+						<th width="15%">Expert Name</th>
+					</tr>
+					<% i = 1%>
+		            <% @jobs.each do |job| %>
+			            <tr>
+			              <td><%= i %></td>
+			              <td>1 hr</td>
+			              <td><%= job.issue_name%></td>
+			              <td><%= job.cat_name %></td>
+			              <%if !job.expert.blank? %>
+			              	<td><%= job.expert.first_name%></td>
+			              <% else %>
+			              	<td></td>
+			              <% end %>
+			              
+
+			            </tr>                
+		            <% i= i+1 %>
+		            <% end %>
+					
+				</table>
+			</div>
+		</div>
+		<!-- <div class="widget reg-stat">
+			<div class="header">Regional statistics
+				<input type="button" value="Consumers" class="grn-bg" />
+				<input type="button" value="Expert" class="blue-bg" />
+				<div class="clr"></div>
+			</div>
+			<div class="content">
+				<img src="assets/map.jpg" alt="" />
+			</div>
+		</div>
+		<div class="widget latest-stat">
+			<div class="header">Latest Call statistics</div>
+			<div class="content mCustomScrollbar">
+				No Records Found .
+			</div>
+		</div> -->
+		<div class="clr"></div>
+	</div>
+	<div class="column-two">
+		<div class="stat-widget grn-bg">
+
+			<span><%= @conusmers.count%></span>
+			<p>Consumers</p>
+			<label><%= @today.count%> new consumers today</label>
+		</div>
+		<div class="stat-widget blue-bg">
+			<span><%= Expert.count%></span>
+			<p>Experts</p>
+			<label><%= Expert.where(:created_at => Date.today).count %> new experts today</label>
+			<span class="add"><a onclick="window.location.href='/experts/new'">Add</a>
+					<!--<a class="add" href="/experts/new">Add</a>-->
+		</div>
+		<div class="clr"></div>
+		<div class="widget act-log">
+			<div class="header">Activity Log</div>
+			<div class="content mCustomScrollbar">
+				No Records Found.
+			</div>
+		</div>
+		<div class="widget recent-comp">
+			<div class="header">Recent Complaints<a href="">View All</a></div>
+			<div class="content mCustomScrollbar">
+			   <% if !@complaints.blank? %>
+				    <% @complaints.each do|complaint|%>
+						<ul>
+							<li>
+								<span>Richard Doe at 20:40</span>
+								<p><%= complaint.complaint_title %></p>
+							</li>
+							
+						</ul>
+				    <% end %>
+				<% else %>
+				    No Records Found .
+				<% end %>
+			</div>
+		</div>
+	
+	</div>
+</div>
+<!--- Content Area End --->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>

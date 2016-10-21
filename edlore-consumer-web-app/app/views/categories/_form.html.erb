@@ -1,0 +1,40 @@
+<div class="content-container add-categry">
+    <h1 class="expert-title">Expert</h1>
+    <div class="expert-content">
+        <div class="expertadd-title">
+            <a onclick="window.location.href='/experts'"></a>
+        <h2>Add Category</h2>
+    </div>
+    <div class="add-categry-frm">
+        <!-- <h3>Add you category</h3> -->
+        <%= simple_nested_form_for @category do |f| %>
+            <div class="feild-panel">
+              <%= f.input :category_name, label: 'Category Name' %>
+            </div>
+            <%= f.fields_for :sub_categories, :wrapper => false do |sub_cat| %>
+	            <div class="feild-panel">
+	               <%= sub_cat.input :sub_cat_name, label: 'SubCategory Name'   %>
+	                <input type="button"/>
+	            </div>
+	        <% end %>
+            <% if params[:id]%>
+            <div class="btn-section">
+                <%= f.submit "Update",:class=>"org-btn" %>
+                <a class="cancel-btn" onclick="window.location.href='/experts'">Cancel</a>
+            </div>
+            <% else %>
+            <div class="btn-section">
+                <%= f.submit "Save",:class=>"org-btn" %>
+                <a class="cancel-btn" onclick="window.location.href='/experts'">Cancel</a>
+            </div>
+            <% end %>
+	        
+        <% end %>
+    </div>
+    <div class="clr"></div>
+</div>
+<p class="footercnt"> &copy; Copy right 2015. All Rights Reserved</p></div>
+
+
+
+

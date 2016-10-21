@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+  <div class="content-container expert-container">
+      <h1>Experts</h1>
+      <div class="expert-content TabbedPanels" id="TabbedPanels1">
+         <ul class="TabbedPanelsTabGroup">
+            <li class="TabbedPanelsTab" tabindex="0">Experts</li>
+                <li class="TabbedPanelsTab" tabindex="0">Categories</li>
+         </ul>  
+               <div class="tab-content TabbedPanelsContentGroup expert-tab-cnt">
+            <div class="TabbedPanelsContent">
+               <div class="search-section">
+                  <%= form_tag experts_path, :method => 'get' do %>
+                   <span><%= text_field_tag :search, params[:search],:placeholder =>"Search By Name,Email Id,Location" %><a class="global-search"></a></span>
+                 <%submit_tag %>
+                 <%end%>
+                  <div class="float-R">
+                     <%= link_to "Add Expert", new_expert_path, :class => "add-btn", :method => :get%>
+                     <%= link_to "Download List", print_expert_details_path, :class => "download-btn", :method => :get%>
+                  </div>
+                  <div class="clr"></div>
+               </div>
+         
+               <div class="fliter-cntr">
+                  <label>Filter By:</label>
+                  <div class="select-field">
+     
+                  <%= form_tag experts_path, :method => 'get',  :id => "form_city_id" do %>
+                
+                  <%= collection_select("", :search, Expert.select(:city).uniq, :city, :city, {:include_blank => 'Select to filter location'}, :class=>"custom-select") %>                
+                    <% end %> 
+                  
+                  </div>
+                
+                  <!-- <div class="select-field select_fil">
+                  
+                  <%= collection_select(:category, :id, Category.all, :id, :category_name,  {:include_blank => "Please select"}, {:class=>"custom-select"}) %>
+
+                    <%= form_tag categories_path, :method => 'get',  :id => "form_category_id" do %>
+                
+                  <%= collection_select("", :search, Category.all, :category_name, :category_name, {:include_blank => 'Select to filter Category'}, :class=>"form_select_class") %>                
+                    <% end %> 
+
+                  
+                  </div>
+                  <div class="select-field">
+                     <%= select_tag "value", options_for_select(sub_cat_list), :class => "custom-select"%>
+
+                  </div>
+                   -->
+                  <div class="clr"></div>
+               </div>
+               
+               <div class="m20">
+                  <table class="comm-table">
+                     <tr>
+                        <th width="6%">S.No</th>
+                        <th width="9%">ID</th>
+                        <th width="15%">Name</th>
+                        <th width="18%">Email Id</th>
+                        <th width="12%">Category</th>
+                       
+                        <th width="10%">Location</th>
+                        <th width="6%">No.of Jobs</th>
+                        <th width="5%">Action</th>
+                     </tr>
+                     <% i = 1%>
+                     <% @experts.each do|expert|%>
+                        <tr>
+                           <td><%= i%></td>
+                           <td><%= expert.expert_id%></td>
+                           <td><%= expert.first_name%></td>
+                           <td><%= expert.email%></td>
+                           <td><%= expert.category.category_name %></td>
+                           <td><%= expert.city %></td>
+                           <td class="align_center"><%= expert.jobs.count %></td>
+                           <td class="action align_center">
+                              <a onclick="window.location.href='/experts/<%= expert.id%>/edit'"><span class="jobs"></span></a>   
+                            
+                             <!-- <%= link_to '', expert, method: :delete, data: { confirm: 'Are you sure want to delete?' }, :class => "delete" %>-->
+                           </td>
+                        </tr>
+                        <% i = i+1%>
+                     <% end %>
+                      
+                    
+                  </table>
+               </div>
+            </div>
+            <div class="TabbedPanelsContent categry-tab-cntr">
+               <div class="search-section">
+                  <!-- <span><input type="text" placeholder="Search"/><a class="global-search" href="#"></a></span> -->
+                  <div class="float-R">
+                     <%= link_to "Add Category", new_category_path, :class => "add-btn"%>
+                     <input type="button" value="Download List" class="download-btn" />
+                  </div>
+                  <div class="clr"></div>
+               </div>
+               <div class="categry-table-sec">
+                  <div class="categry-accordion">
+                     <table class="comm-table">
+                        <tr>
+                           <th width="10%">No</th>
+                           <th width="35%">Category<span></span></th>
+                           <th class="align_center" width="30%">No.of.Experts<span></span></th>
+                           <th>Action</th>
+                        </tr>
+                     </table>
+                     <div class="accordion_in">
+                     <%@categories.each do|cat|%>
+                        <div class="acc_head">
+                           <table class="comm-table">
+                              <tr>
+                                 <td width="10%"><%= cat.id%></td>
+                                 <td width="35%"><%= cat.category_name%><span></span></td>
+                                 <td class="align_center" width="30%"><%= cat.expert_count%><span></span></td>
+                                 <td class="action">
+
+
+                                  <%if !cat.experts.blank? %>
+                                     <%= link_to "", edit_category_path(cat), class: "edit" %>
+                                  <% else %>
+                                     <%= link_to "", edit_category_path(cat), class: "edit" %>
+                                      <%= link_to "", cat, method: :delete, data: { confirm: 'Are you sure want to delete?' }, :class => "delete" %>
+
+                                  <% end %>                       
+                                 </td>
+                              </tr>
+                           </table> 
+                        </div>
+                     <%cat.sub_categories.each do|sub_cat|%>
+                        <div class="acc_content">
+                           <table>
+                              <tr class="acc-content-list">
+                                 <td width="59%" class="pl10"><%= sub_cat.sub_cat_name%></td>
+                                 <td width="16%">23</td>
+                                 <td  class="action">
+                                    <!--<%= link_to "", edit_sub_category_path(sub_cat), class: "edit" %>-->
+                                     <%= link_to "", sub_cat, method: :delete, data: { confirm: 'Are you sure want to delete?' }, :class => "delete" %>
+                                 </td>
+                              </tr>
+                              
+                           </table>
+                        </div>
+                     <%end%>
+                     <%end%>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>     
+         <!---- expert tab content end------->
+         <!---- tab content end -------->
+      </div>   
+      <p class="footercnt"> &copy; Copy right 2015. All Rights Reserved</p>
+   </div>
+<script src="/SpryTabbedPanels.js"></script>
+
+<script>
+  $(document).ready(function(){
+  $("#exp_loc").on("change", function(){
+    alert("newSelect");
+    $("#form_location_id").submit();
+  })
+
+  //  $(".form_select_class").on("change", function(){
+
+  //   $("#form_category_id").submit();
+  // });
+
+  $("#_search").on("change", function(){
+
+    $("#form_city_id").submit();
+  });
+        
+  })
+</script>
+
+<!-- ###Script for removing drop down search Duplications//-->
+<!--<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+var code = {};
+$("select[name='[search]'] > option").each(function () {
+    if(code[this.text]) {   
+        $(this).remove();
+    } else {
+        code[this.text] = this.value;
+    }
+});
+</script>-->
+
+
+</body>
+</html>

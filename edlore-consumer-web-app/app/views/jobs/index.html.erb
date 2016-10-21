@@ -1,0 +1,143 @@
+<<!DOCTYPE html>
+<html>
+
+
+<head>
+   <meta charset="utf-8">
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+   <link rel="stylesheet" href="/resources/demos/style.css">
+</head>
+<div class="content-container expert-container">
+   <h1 class="expert-title">Helps</h1>
+   <div class="expert-content job-details-content">
+      <div class="expertadd-title">
+         <h2 class="">Help list</h2>
+      </div>
+      <div class="search-section">
+         <%= form_tag jobs_path, :method => 'get' do %>
+         <span><%= text_field_tag :search, params[:sear],:placeholder =>"Search" %><a class="global-search"></a></span>
+         <%submit_tag %>
+         <%end%>
+         <div class="float-R">
+            <%= link_to "Download List", print_job_details_path, :class => "download-btn", :method => :get%>
+         </div>
+         <div class="clr"></div>
+      </div>
+      <div class="expert-details-filter">
+         <label class="">Filter By:</label>
+         <div class="select-field job-location">
+            <%= form_tag jobs_path, :method => 'get',  :id => "form_id" do %>
+             <%= collection_select("", :search, Job.select(:visit_address).uniq, :visit_address, :visit_address, {:include_blank => 'Select to filter Address'}, :class => "custom-select") %>          
+            <% end %>
+         </div>
+         <div class="date-select">
+            <%= form_tag jobs_path, :method => 'get',  :id => "datepicker_form_id" do %>
+            <%= text_field_tag :search, params[:search],:placeholder => "Select Date", :id => "date_packer_from_id" %>
+            <%submit_tag %>
+         </div>
+         <!--  <div class="date-select">
+            <%= text_field_tag :search, params[:search],:placeholder =>"To Date", :id => "datepicker_to" %>
+            </div> -->
+         <% end %>
+         <div class="status-reset-sec">
+            <div class="select-field">
+               <%= form_tag jobs_path, :method => 'get',  :id => "status_form_id"  do %>
+               <div class="testt">
+                  <!--<%= collection_select("", :search, Job.all, :status, :status, {:include_blank => 'Select to filter status'},   :class => "custom-select") %>-->               
+                  <select name="search" class="custom-select">
+                     <option>Please Select</option>
+                     <option>New</option>
+                     <option>Active</option>
+                     <option>Cancelled</option>
+                     <option>Paused</option>
+                     <option>Completed</option>
+                     
+                  </select>
+               </div>
+               <% end %>
+            </div>
+            <a class="reset" onclick="window.location.href='/jobs'">Reset</a>
+         </div>
+         <div class="clr"></div>
+      </div>
+      <div class="m20">
+         <table class="comm-table">
+            <tr>
+               <th width="6%">No.</th>
+               <th width="10%">ID</th>
+               <th width="18%">Help Name</th>
+               <th width="10%">Date</th>
+               <th width="10%">Category</th>
+               <th width="10%">Status</th>
+               <th width="3%">Action</th>
+            </tr>
+            <% i = 1%>
+            <% @jobs.each do |job| %>
+            <tr>
+               <td><%= i %></td>
+               <td>J<%= job.id%></td>
+               <td><%= job.issue_name%></td>
+               <td><%= job.receive_date%></td>
+               <td><%= job.status%></td>
+               <% if !job.payment.blank? %>
+                  <td>$ <%= job.payment%></td>
+
+               <% else %>
+                  <td>No pay</td>
+
+               <% end %>
+               <td class="action align_center">
+                  <!--                 <a href="" class="delete"></a>
+                     -->                <%= link_to '', job, method: :delete, data: { confirm: 'Are you sure?' }, :class => "delete" %>
+               </td>
+            </tr>
+            <% i= i+1 %>
+            <% end %>
+         </table>
+      </div>
+   </div>
+   <p class="footercnt"> &copy; Copy right 2015. All Rights Reserved</p>
+</div>
+<body>
+  
+
+   <script>
+      $(document).ready(function(){
+           
+            var code = {};
+              $("select[name='[search]'] > option").each(function () {
+                  if(code[this.text]) {
+                      $(this).remove();
+                  } else {
+                      code[this.text] = this.value;
+                  }
+              });
+           $( "#date_packer_from_id" ).datepicker({dateFormat: 'yy-mm-dd'});
+           $("#datepicker_to").datepicker();
+      
+           
+           $("#date_packer_from_id").on("change", function(){
+           $("#datepicker_form_id").submit();
+           });
+      
+       $(".testt").on("change",function(){
+         $("#status_form_id").submit();
+      
+       });
+
+      
+      $("#_search").on("change", function() { 
+       $("#form_id").submit();
+      });
+      
+      
+      });
+
+   </script>
+
+</body>
+
+
+</html>

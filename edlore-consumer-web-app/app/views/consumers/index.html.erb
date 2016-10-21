@@ -1,0 +1,57 @@
+
+  <div class="content-container expert-container">
+    <h1>Consumers</h1>
+    <div class="expert-content">
+      <div class="consumer-details">
+          <h3 class="">Consumers List</h3>
+        <div class="search-section">
+        <%= form_tag consumers_path, :method => 'get' do %>
+          <span><%= text_field_tag :search, params[:search],:placeholder =>"Search by User Name,Email Id,Location" %><a class="global-search"></a></span>
+        <%submit_tag %>
+        <%end%>
+          <div class="float-R">
+            <%= link_to "Download List", print_consumer_details_path, :class => "download-btn", :method => :get%>
+        </div>
+        <div class="clr"></div>
+        </div>
+       <!--  <div class="fliter-cntr">
+          <label>Fliter By:</label>
+          <div class="select-field">
+            <%= select_tag "value", options_for_select(category_list), :class => "custom-select"%>
+          </div> -->
+            <div class="clr"></div>
+        </div>
+        <div class="m20">
+          <table class="comm-table">
+            <tr>
+              <th width="5%">No.</th>
+              <th width="10%">ID</th>
+              <th width="15%">User Name</th>
+              <th width="15%">Email Id</th>
+              <th width="10%">Location</th>
+              <th width="5%">No.of.Jobs</th>
+              <th width="5%">Amount</th>
+              
+            </tr>
+            <% i = 1%>
+            <% @consumers.each do|consumer|%>
+             <tr>
+                <td><%= i%></td>
+                <td>C<%= i%></td>
+                <td><%= consumer.username%></td>
+                <td><%= consumer.email%></td>
+                <td><%= consumer.city %></td>
+                <td class="align_center"><%= consumer.jobs.count%></td>
+                <td class="align_center">$0</td>
+                
+             </tr>
+             <% i = i+1%>
+          <% end %>
+            
+                    
+          </table>
+        </div>
+      </div>  
+    </div>  
+    <p class="footercnt"> &copy; Copy right 2015. All Rights Reserved</p>
+  </div>

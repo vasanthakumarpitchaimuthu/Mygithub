@@ -1,0 +1,66 @@
+
+  <div class="content-container complaint-list">
+    <h1>Complaints</h1>
+    <div class="expert-content">
+      <div class="consumer-details">
+          <h3 class="">List of Complaints</h3>
+        <div class="search-section">
+          <span><input type="text" placeholder="Search"/><a class="global-search" href="#"></a></span>
+          <div class="float-R">
+            <input type="button" class="download-btn" value="Download List">
+        </div>
+        <div class="clr"></div>
+        </div>
+        <div class="expert-details-filter">
+        <label class="">Fliter By:</label>
+        <div class="date-select">
+        <input type="text" placeholder="From Date"/>
+        <a href="#"></a>
+        </div>
+        <div class="date-select">
+        <input type="text" placeholder="To Date"/>
+        <a href="#"></a>
+        </div>
+        <div class="status-reset-sec">
+          <div class="select-field">
+            <select name="timepass" class="custom-select">
+              <option>Status</option>
+              <option>Status1</option>
+              <option>Status2</option>
+              <option>Status3</option>           
+            </select>
+          </div>
+          <input type="button" class="reset" value="Reset"/>
+          
+        </div>
+        <div class="clr"></div>
+        
+      </div>
+        <div class="m20">
+          <table class="comm-table">
+            <tr>
+              <th width="5%">No.</th>
+              <th width="18%">Complaints ID<span></span></th>
+              <th width="25%">Complaints Title</th>
+              <th width="12%">Date<span></span></th>
+              <th width="16%">Customer ID<span></span></th>
+              <th width="12%">Job ID<span></span></th>
+              <th>Status<span></span></th>
+            </tr>
+            <% @complaints.each do |complaint| %>
+              <tr>
+                <td><%= complaint.id %></td>
+                <td><%= complaint.complaint_title %></td>
+                <td><%= complaint.received_date %></td>
+                <td><%= complaint.user_id%></td>
+                <td><%= complaint.job_id %></td>
+                <td><%= complaint.status %></td>
+                <td><%= link_to 'Show', complaint %></td>
+                <td><%= link_to 'Destroy', complaint, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>  
+    <p class="footercnt"> &copy; Copy right 2015. All Rights Reserved</p>
+  </div>

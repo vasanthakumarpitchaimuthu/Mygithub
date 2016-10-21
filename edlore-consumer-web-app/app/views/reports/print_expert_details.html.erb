@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+    .pdftable tr td{text-align:center;padding:8px 0;}
+    .pdftable tr th{text-align:center;padding:8px 0;color:#fff;}
+    </style>
+  </head>
+  <body>
+    <div>
+    <h2> Expert List</h2> 
+    <table class="comm-table pdftable" style="border:1px solid #ccc;width:980px">
+      <tr style="background: #333;">
+        <th width="5%">S.No</th>
+        <th width="10%">ID</th>
+        <th width="15%">Name</th>
+        <th width="25%">Email Id</th>
+        <th width="20%">Category</th>
+        <th width="14%">Location</th>
+        <th width="10%">No.of.Jobs</th>
+        
+      </tr>
+      <%i =1%>
+      <% @experts.each do|expert|%>
+        <tr>
+           <td><%= i%></td>
+           <td><%= expert.expert_id%></td>
+           <td><%= expert.first_name %></td>
+           <td><%= expert.email%></td>
+           <td><%= expert.category.category_name %></td>
+           <td><%= expert.city %></td>
+           <td><%= expert.jobs.count %></td>
+           
+        </tr>
+        <% i = i+1%>
+     <% end %>
+    </table>
+    </div>
+  </body>
+</html>       

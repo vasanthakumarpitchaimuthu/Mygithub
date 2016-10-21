@@ -1,0 +1,5 @@
+<%  @sub_cat.each do |sub_category| %>   
+$('.sub_category_select').empty();
+$('.sub_category_select').append
+($('<option value="<%= sub_category.id %>"><%= sub_category.sub_cat_name %></option>'));    
+<% end %>

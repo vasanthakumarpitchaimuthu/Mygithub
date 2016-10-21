@@ -1,0 +1,120 @@
+<div class="content-container expert-container">
+   <h1 class="expert-title">Expert</h1>
+   <div class="expert-content">
+      <div class="expertadd-title">
+         <a onclick="window.location.href='/experts'"></a>     
+         <% if params[:id]%>
+            <h2> Edit Expert</h2>
+         <%else%>
+            <h2>Add Expert</h2>
+         <%end%>
+      </div>
+      <div class="left-panel">
+         <%= image_tag "avator.png"%>
+      </div>
+      <div class="right-panel">
+         <%= simple_form_for @expert do |f| %>
+            <h3 class="add-cnt-heading">Personal Information</h3>
+            <div class="feild-section">
+            <div class="feild-panel">
+               <label>Expert ID</label>
+               <%count = (Expert.last)? Expert.last.id + 1:1 %>
+               <%if f.object.new_record?
+                v = "E#{count}" 
+                else 
+                v = "E#{params[:id]}"
+               end%>
+               <%= f.text_field :expert_id, :label => "Expert ID", :class => "expertid", :value => v, :readonly => true%>
+            </div>
+            </div>
+            
+            <div class="feild-section">
+            <div class="feild-panel">
+               <%= f.input :first_name, :label => "First Name"%>
+            </div>
+            <div class="feild-panel"> 
+               <%= f.input :last_name, :label => "Last Name"%>
+            </div>   
+            <div class="feild-panel">  
+               <%= f.input :phone, :label => "Contact Number"%>
+            </div>  
+                     
+            </div>
+         
+            <div class="feild-section">
+              <div class="feild-panel">  
+                  <%= f.input :email, :label => "Email ID"%>
+               </div>  
+            </div>
+         
+            <div class="feild-section">
+               <div class="feild-panel">           
+                  <%= f.input :city, :label => "City"%>
+               </div> 
+               <div class="feild-panel">
+                  <%= f.input :state, :label => "State"%>
+               </div>
+               <div class="feild-panel">                          
+                  <%= f.input :zipcode, :label => "ZipCode"%>
+               </div>
+            </div>
+            <h3 class="add-cnt-heading">Service Information</h3>
+            <div class="feild-section">
+            <div class="service-feild-panel">
+               <div class="select-style">
+
+                  <%= f.association :category, label_method: :category_name, value_method: :id, include_blank: false,  :input_html => {:class => "category_select"} %>
+                
+                  
+                  
+               </div>
+            </div>
+            <div class="service-feild-panel">
+             <%= f.association :sub_category, label_method: :sub_cat_name, value_method: :id, include_blank: false,  :input_html => {:class => "sub_category_select"} %>  
+
+             </div>   
+            </div>
+            
+         </div>    
+         <%if params[:id]%>
+         <div class="btn-section">
+          <%= f.submit "Update",:class=>"save-btn" %>
+          <a class="cancel-btn" onclick="window.location.href='/experts'">Cancel</a>
+         </div>
+           
+         <% else %>
+          <div class="btn-section">
+             <%= f.submit "Save",:class=>"save-btn" %>
+            <a class="cancel-btn" onclick="window.location.href='/experts'">Cancel</a>
+         </div>
+           
+         <% end %>
+        
+         <% end %>
+         <div class="clr"></div>
+      </div>
+      <p class="footercnt"> &copy; Copy right 2015. All Rights Reserved</p>
+   </div>
+   
+
+<script>
+  $(document).ready(function(){
+    
+    $(".category_select").change(function(){
+      var role = $(".category_select").val();
+      
+     
+       $.ajax({
+         url: "/experts/get_values",
+         type: "GET",
+         dataType: "script",
+         data: 
+          {category_id: $('.category_select option:selected').val()}
+            })
+
+    })
+  })
+
+</script>
+
+

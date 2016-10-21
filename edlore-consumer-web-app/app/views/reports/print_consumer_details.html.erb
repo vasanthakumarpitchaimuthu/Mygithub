@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<style>
+.pdftable tr td{text-align:center;padding:8px 0;}
+.pdftable tr th{text-align:center;padding:8px 0;color:#fff;}
+</style>
+</head>
+<body>
+<div>
+<h2> Consumer List</h2> 
+<table class="comm-table pdftable" style="border:1px solid #ccc;width:900px">
+  <tr style="background: #333;">
+    <th width="5%">No.</th>
+    <th width="10%">ID<span></span></th>
+    <th width="15%">User Name</th>
+    <th width="15%">Email ID<span></span></th>
+    <th width="14%">Location<span></span></th>
+    <th width="15%">No.of.Jobs<span></span></th>
+    <th width="14%">Amount<span></span></th>
+  </tr>
+  <% i = 1%>
+  <% @consumers.each do|consumer|%>
+   <tr>
+      <td><%= i%></td>
+      <td>C<%= i%></td>
+      <td><%= consumer.username%></td>
+      <td><%= consumer.email%></td>
+      <td><%= consumer.city %></td>
+      <td><%= consumer.jobs.count%></td>
+      <td>$0</td>
+      <td class="action">
+         <%= link_to '',edit_consumer_path(consumer), :class => "edit" %>
+      </td>
+   </tr>
+   <% i = i+1%>
+<% end %>
+  
+</table>

@@ -1,0 +1,30 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+.simple_form .error {clear: left;position: absolute;bottom:-6px; font-size: 12px;color: #D00;display: block;}
+.container{width:980px;margin:0 auto;}
+.signin-page{overflow:auto;}
+.signinpopup { background: #e4e7ea; border: 1px solid #333;float:right; margin:90px 2% 2%; padding: 30px;width: 25%;position:absolute;right:0px;top:0;}
+.signinpopup h3 { color: #d44a27; font-family: "open_sanssemibold"; font-size: 30px; padding: 0 0 20px;}
+.labl-cnt label { display: block; font-size: 16px; margin: 0 0 15px;}
+.labl-cnt input { border: 1px solid #ccc; height: 30px; margin-bottom:15px; width: 100%;text-indent:5px;}
+.signinpopup i{display:block;float:right;}
+.signinpopup .remember-cnt { margin: 20px 0;}
+.signinpopup form p { line-height: 30px;}
+.signinpopup p a { margin-right: 5px;color: #d44a27;font-weight:italic;font-size:16px;}
+.signinpopup input[type="button"] {background:#5dc560; border: medium none; padding: 5px 0; width: 100%;font-size:16px;color:#fff;}
+.singin-btn-section {  margin-right: 30px;}
+.singin-btn-section input[type="button"] { background:#3b7bb2; border: medium none; margin-right: 20px; padding: 5px 20px;color:#fff;font-size:16px;}
+

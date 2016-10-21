@@ -1,0 +1,125 @@
+  <div class="content-container expert-container">
+    <h1>Expert</h1>
+    <div class="expert-content">
+      <div class="expertadd-title">
+        <%=link_to "",experts_path%>
+        <h2 class="">Expert Details</h2>
+      </div>
+      <div class="expert-user-section">
+        <img class="" src="/assets/avator.png"/>
+        <div class="expt-consumer-details">
+          <span class="consumer-name"><%= @expert.first_name%> <%= @expert.last_name%></span>
+          <span class="consumer-loc"><%= @expert.city%> ,<%= @expert.country%></span>
+          <span class="occupation"><%= @expert.category.category_name %></span>
+          
+
+          <div class="rating-view">
+            <span class="rating"></span>
+            <span class="rating"></span>
+            <span class="rating"></span>
+            <span class="rating"></span>
+            <span class="rating"></span>
+            <span>(<%= @expert.total_rating%> Ratings) </span>
+          </div>
+          <span class="user-review"><%= @expert.feedbacks.count%> Comments</span>
+        </div>
+        <div class="expt-consumer-details">
+          <p class="consumer-contact"><%= @expert.phone%></p>
+          <p class="consumer-mailid"><%= @expert.email%></p>
+        </div>
+        <div class="expt-consumer-details">
+          <p class="consumer-jobs"><b><%= @expert.jobs.count%></b> Jobs completed</p>
+          <p class="consumer-earnings"><b>$0</b> Earnings</p>
+        </div>
+      </div>
+      <div class="consumer-search-sec">
+        <h3>Job Details</h3>
+        <div class="job-search-section">
+        <input type="text" placeholder="Search By name"/>
+        <a href="#" class="global-search"></a>
+        </div>
+        <div class="clr"></div>
+      </div>
+      <div class="expert-details-filter">
+        <label class="">Fliter By:</label>
+        <div class="date-select">
+        <input type="text" placeholder="From Date"/>
+        <a href="#"></a>
+        </div>
+        <div class="date-select">
+        <input type="text" placeholder="To Date"/>
+        <a href="#"></a>
+        </div>
+        <div class="status-reset-sec">
+          <div class="select-field">
+            <select name="timepass" class="custom-select">
+              <option>Status</option>
+              <option>Status1</option>
+              <option>Status2</option>
+              <option>Status3</option>           
+            </select>
+          </div>
+          <input type="button" class="reset" value="Reset"/>
+        </div>
+        <div class="clr"></div>
+      </div>
+      <div class="m20">
+        <table class="comm-table">
+          <tr>
+            <th width="6%">No</th>
+            <th width="8%">Help ID<span></span></th>
+            <th width="15%">Help Name</th>
+            <th width="10%">Date<span></span></th>
+            <th width="14%">Time taken<span></span></th>
+            <th width="11%">Earning<span></span></th>
+            <th width="17%">Status<span></span></th>
+            <th width="8%">Action</th>
+          </tr>
+          <%i = 1%>
+          <%@expert.jobs.each do |job|%>
+          <tr>
+            <td><%= i%></td>
+            <td>H<%= job.id%></td>
+            <td><%= job.issue_name%></td>
+            <td><%= job.received_date%></td>
+            <td>1 hour 30 minutes</td>
+            <td>$23</td>
+            <td><input type="button" value="Completed" class="status-btn grn"/><a class="detail" href="javascript:">Details</a></td>
+            <td class="action">
+              <%= link_to "",edit_job_path(job)%>
+              <%= link_to '', job, method: :delete, data: { confirm: 'Are you sure?' }, :class => "delete" %>
+            </td>
+            <% i = i+1%>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+        <div class="user-comment-section">
+          <h3 class="job-head">Recieved Comments</h3>
+          <div class="comment-cnt">
+            <%@expert.feedbacks.each do|comment|%>
+              <div class="accordion">
+                <div class="user-cmt active">
+                  <!-- <img class="" src= "" alt="usericon"> -->
+                  <div class="cmt-user-details">
+                    <h3 class="user-name"><%= comment.user.username%> -<span>C<%= comment.user_id%></span></h3>
+                    <p><span class="user-id">Help ID - H<%= comment.job_id%></span> |
+                    <span class="rating"></span>
+                    <span class="rating"></span>
+                    <span class="rating process"></span>
+                    <span class="rating unfill"></span>
+                    <span class="rating unfill"></span>
+                    </p>
+                  
+                  </div>
+                  <span class="date"><%=comment.created_at%></span>
+                </div>
+                <div class="accordion-cont">
+                  <h6>Issue - <%= comment.job.issue_name%></h6>
+                  <p><%= comment.description%></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+    </div>
+    
